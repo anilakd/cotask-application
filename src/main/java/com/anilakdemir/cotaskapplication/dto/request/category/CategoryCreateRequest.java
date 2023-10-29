@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 public class CategoryCreateRequest {
 
-
     @NotBlank
     private String name;
 }

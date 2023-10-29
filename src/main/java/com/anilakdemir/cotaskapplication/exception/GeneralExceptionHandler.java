@@ -1,5 +1,6 @@
 package com.anilakdemir.cotaskapplication.exception;
 
+import com.anilakdemir.cotaskapplication.dto.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,7 @@ public class GeneralExceptionHandler{
 
     // This method will run when there is a validation error
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, Object>> handleValidationException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiResponse<Map<String, Object>>> handleValidationException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<Map<String, String>> errors = new ArrayList<>();
 
@@ -30,25 +31,31 @@ public class GeneralExceptionHandler{
         });
 
         // Create error messages in JSON format
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", HttpStatus.BAD_REQUEST.value());
-        response.put("errors", errors);
+        Map<String, Object> errorMap = new HashMap<>();
+        errorMap.put("status", HttpStatus.BAD_REQUEST.value());
+        errorMap.put("errors", errors);
+
+        ApiResponse<Map<String, Object>> response = ApiResponse.fail(errorMap);
 
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(CategoryAlreadyExistsException.class)
-    public ResponseEntity<Map<String, Object>> handleValidationException(CategoryAlreadyExistsException ex) {
-
-        List<Map<String, String>> errors = new ArrayList<>();
-
-
-
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException exception) {
         // Create error messages in JSON format
-        Map<String, Object> response = new HashMap<>();
-        response.put("errorCode", ex.getErrorCode());
-        response.put("errors", errors);
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("message", exception.getMessage());
+        ApiResponse<Map<String, String>> response = ApiResponse.fail(errorMap);
 
         return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleCategoryNotFoundException(CategoryNotFoundException exception) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("message", exception.getMessage());
+
+        ApiResponse<Map<String, String>> response = ApiResponse.fail(errorMap);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 }

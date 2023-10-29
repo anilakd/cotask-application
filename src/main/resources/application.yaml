@@ -1,14 +1,10 @@
 
 spring:
   datasource:
-    url: jdbc:h2:mem:accounttestdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/cotaskdb
+    username: root
+    password: password*123
   jpa:
     hibernate:
       ddl-auto: create
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    show-sql: true
