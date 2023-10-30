@@ -14,7 +14,7 @@ import lombok.*;
 @Builder
 public class Dashboard extends BaseEntity {
 
-    @Column(length = 15, nullable = false)
+    @Column(nullable = false)
     private String title;
 
     // TODO: add dashboard users
