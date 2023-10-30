@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/dashboards")
+@RequestMapping("api/v1/dashboards")
 @RequiredArgsConstructor
 @Validated
 public class DashboardController {

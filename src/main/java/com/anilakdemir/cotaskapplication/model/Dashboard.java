@@ -17,5 +17,4 @@ public class Dashboard extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
-    // TODO: add dashboard users
 }
