@@ -26,7 +26,7 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping
+    @PatchMapping
     public ResponseEntity<ApiResponse<CategoryResponse>> updateName(@Valid @NotNull @RequestParam UUID id, @NotBlank @RequestParam String name) {
         ApiResponse<CategoryResponse> response = categoryService.updateCategoryName(id, name);
         return ResponseEntity.ok(response);

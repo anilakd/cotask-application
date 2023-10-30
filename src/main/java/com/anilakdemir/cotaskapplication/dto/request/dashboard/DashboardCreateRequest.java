@@ -1,5 +1,6 @@
 package com.anilakdemir.cotaskapplication.dto.request.dashboard;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,5 +8,6 @@ import lombok.Setter;
 @Setter
 public class DashboardCreateRequest {
 
+    @NotBlank
     private String title;
 }
